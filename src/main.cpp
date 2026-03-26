@@ -11,11 +11,12 @@ int main()
 	sf::RenderWindow window( sf::VideoMode( { 960, 540 } ), "Particle Simulator", sf::Style::Resize | sf::Style::Close);
 	Counter particleCounter;
 	sf::Font font("../src/assets/fonts/Overpass-Black.ttf");
-
 	sf::Text particleCountText(font);
+	particleCountText.setCharacterSize(42);
 	
 	// Sets the origin of the cursor to be in the middle of the particle
 	// particle.setOrigin(sf::Vector2f(particle.getRadius(), particle.getRadius()));
+	Particle particle(100.0f);	
 	
 	// While application is open
 	while ( window.isOpen() )
@@ -53,17 +54,15 @@ int main()
 			}
 		}
 		
-		window.clear();
-
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 		{
-			Particle particle(100.0f, sf::Vector2(0.0f, 0.0f));
 			sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
 			particle.setPosition(static_cast<sf::Vector2f>(mousePosition));
-			particle.draw(window);
 			particleCounter.increment();
 		} 
+		window.clear();
 		
+		particle.draw(window);
 		particleCountText.setString(std::format("Particle Count = {}\n", particleCounter.getAmount()));
 		window.draw(particleCountText);
 		window.display();

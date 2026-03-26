@@ -1,9 +1,11 @@
 #include <SFML/Graphics.hpp>
 
-class Particle : sf::CircleShape {
+class Particle {
     public:
 
-        Particle(float size, sf::Vector2f position) {};
+        Particle(float particleSize, const sf::Color particleColor, const sf::Vector2f particlePosition) 
+        : size(particleSize), color{particleColor}, position(particlePosition) {};
+
         float getSize()
         {
             return size;
@@ -29,6 +31,7 @@ class Particle : sf::CircleShape {
             color = newColor;
         }
 
+        
         void draw(sf::RenderWindow& window)
         {
             circle.setOrigin(sf::Vector2f(getRadius(), getRadius()));
