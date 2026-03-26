@@ -16,7 +16,7 @@ int main()
 	
 	// Sets the origin of the cursor to be in the middle of the particle
 	// particle.setOrigin(sf::Vector2f(particle.getRadius(), particle.getRadius()));
-	Particle particle(100.0f);	
+	Particle particle(100.0f, sf::Color::Cyan);	
 	
 	// While application is open
 	while ( window.isOpen() )
@@ -29,7 +29,7 @@ int main()
 			{
 				window.close();
 			}
-			
+		
 			// When window is resized, print size to console
 			if ( event->is<sf::Event::Resized>())
 			{
