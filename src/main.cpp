@@ -1,15 +1,19 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+#include "particle.h"
+
 int main()
 {
 
 	// Creates the main window
-	sf::RenderWindow window( sf::VideoMode( { 960, 540 } ), "SFML works!", sf::Style::Resize | sf::Style::Close);
-	// Initializes a circle called `shape`
-	sf::CircleShape shape( 200.f );
-	// Sets the color of `shape` to green
-	shape.setFillColor( sf::Color::Green );
+	sf::RenderWindow window( sf::VideoMode( { 960, 540 } ), "Particle Simulator", sf::Style::Resize | sf::Style::Close);
+
+	Particle particle(100.0f, sf::Vector2(0.0f, 0.0f));
+	particle.setColor(sf::Color::Green);
+
+	// // Sets the origin of the cursor to be in the middle of the particle
+	// particle.setOrigin(sf::Vector2f(particle.getRadius(), particle.getRadius()));
 
 	// While application is open
 	while ( window.isOpen() )
@@ -36,13 +40,28 @@ int main()
     			if (textEntered->unicode < 128)
         			std::cout << "ASCII character typed: " << static_cast<char>(textEntered->unicode) << std::endl;
 			}
+
+			// If the user pressed ESC, the window will close
+			if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
+			{
+				if (keyPressed->scancode == sf::Keyboard::Scan::Escape)
+				{
+					window.close();
+				}
+			}
 			
 		}
+		
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+		{
+			sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+			particle.setPosition(static_cast<sf::Vector2f>(mousePosition));
+		} 
 
 		// Clear the screen
 		window.clear();
-		// Draw `shape`
-		window.draw( shape );
+		// Draw `particle`
+		particle.draw(window);
 		// Update the window
 		window.display();
 	}
