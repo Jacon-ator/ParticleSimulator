@@ -10,8 +10,9 @@ struct Counter {
             bool fontLoaded = font.openFromFile(FONT_PATH);
             if (fontLoaded)
             {
-                sf::Text text(font);
-                text.setCharacterSize(characterSize);
+                // Emplace sets the constructor of the optional 
+                text.emplace(font);
+                text.value().setCharacterSize(characterSize);
             }
             else
             {
@@ -34,22 +35,18 @@ struct Counter {
             amount -= value;
         }
 
-        std::string getDisplayStirng()
-        {
-            return displayString;
-        }
-
         void draw(sf::RenderWindow &window)
         {
             if (text.has_value())
             {
+                std::string displayString = std::format("Particle Count = {}\n", getAmount());              
                 text.value().setString(displayString);
+                window.draw(text.value());
             }
         }
 
     private:
         int amount = 0;
-        std::string displayString = std::format("Particle Count = {}\n", getAmount());
         sf::Font font;
         std::optional<sf::Text> text;
         int characterSize = 42;
