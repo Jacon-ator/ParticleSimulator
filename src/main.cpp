@@ -9,7 +9,6 @@
 
 int main()
 {
-	
 	// --- Initialization Of Objects
 
 	sf::RenderWindow window( sf::VideoMode( { 960, 540 } ), "Particle Simulator", sf::Style::Resize | sf::Style::Close);
@@ -17,7 +16,6 @@ int main()
 	sf::Font font("../src/assets/fonts/Overpass-Black.ttf");
 	sf::Text particleCountText(font);
 	std::vector<std::unique_ptr<Particle>> particleVector;
-	EventHandler eventHandler;
 	
 	while ( window.isOpen() )
 	{
@@ -32,19 +30,19 @@ int main()
 		
 			// When window is resized, print size to console
 			if ( event->is<sf::Event::Resized>())
-				eventHandler.handleEventResized(window);
+				EventHandler::handleEventResized(window);
 			
 			// If the user enters text, print that ascii to console
 			if (const auto* textEntered = event->getIf<sf::Event::TextEntered>())
-				eventHandler.handleTextEntered(textEntered);
+				EventHandler::handleTextEntered(textEntered);
 			
 			// If the user pressed ESC, the window will close
 			if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
-				eventHandler.handleKeyPressed(keyPressed, window);
+				EventHandler::handleKeyPressed(keyPressed, window);
 
 			// When user clicks, a particle is placed at their mouse position
 			if (event->is<sf::Event::MouseButtonPressed>())
-				eventHandler.handleParticleSpawn(window, particleVector, particleCounter);
+				EventHandler::handleParticleSpawn(window, particleVector, particleCounter);
 		}
 		
 	// --- Render Loop ---

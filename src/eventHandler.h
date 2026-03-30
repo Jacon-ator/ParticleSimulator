@@ -1,7 +1,11 @@
+#pragma once
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <vector>
+#include <memory>
 
-struct EventHandler {
+namespace EventHandler {
 
     void handleEventResized(sf::RenderWindow &window)
     {
@@ -14,7 +18,7 @@ struct EventHandler {
 	        std::cout << "ASCII character typed: " << static_cast<char>(textEntered->unicode) << std::endl;
     }
 
-    void handleKeyPressed(auto keyPressed, sf::RenderWindow &window)
+    void handleKeyPressed(const sf::Event::KeyPressed *keyPressed, sf::RenderWindow &window)
     {
 	    if (keyPressed->scancode == sf::Keyboard::Scan::Escape)
 	    {

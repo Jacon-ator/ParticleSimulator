@@ -1,14 +1,31 @@
+#pragma once
+
 #include <SFML/Graphics.hpp>
 
 class Particle {
     public:
 
         Particle(const sf::Color particleColor) 
-        : color{particleColor} {};
+        : color{particleColor} {
+            circle.setOrigin(sf::Vector2f(getRadius(), getRadius()));
+            circle.setPosition(position);
+            circle.setRadius(getRadius());
+            circle.setFillColor(color);
+        };
         Particle(const sf::Color particleColor, const sf::Vector2f particlePosition) 
-        : color{particleColor}, position(particlePosition) {};
+        : color{particleColor}, position(particlePosition) {
+            circle.setOrigin(sf::Vector2f(getRadius(), getRadius()));
+            circle.setPosition(position);
+            circle.setRadius(getRadius());
+            circle.setFillColor(color);
+        };
         Particle(const sf::Color particleColor, const sf::Vector2f particlePosition, float particleSize) 
-        : color{particleColor}, position(particlePosition), size(particleSize) {};
+        : color{particleColor}, position(particlePosition), size(particleSize) {
+            circle.setOrigin(sf::Vector2f(getRadius(), getRadius()));
+            circle.setPosition(position);
+            circle.setRadius(getRadius());
+            circle.setFillColor(color);
+        };
 
         float getSize()
         {
@@ -38,10 +55,6 @@ class Particle {
         
         void draw(sf::RenderWindow& window)
         {
-            circle.setOrigin(sf::Vector2f(getRadius(), getRadius()));
-            circle.setPosition(position);
-            circle.setRadius(getRadius());
-            circle.setFillColor(color);
             window.draw(circle);
         }
 
@@ -49,5 +62,5 @@ class Particle {
         float size = 20.0f;
         sf::Color color = sf::Color::Cyan;
         sf::Vector2f position = sf::Vector2f(0.0f, 0.0f);
-        sf::CircleShape circle;
+        sf::CircleShape circle; 
 };
