@@ -26,7 +26,7 @@ struct EventHandler {
     {
         sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
 	    // Makes a new unique_ptr for a new particle
-		std::unique_ptr<Particle> particle = std::make_unique<Particle>(20.0f, sf::Color::Cyan, static_cast<sf::Vector2f>(mousePosition));
+		std::unique_ptr<Particle> particle = std::make_unique<Particle>(particle->getSize(), sf::Color::Cyan, static_cast<sf::Vector2f>(mousePosition));
         // Adds the pointer to the new particle to the particleVector array
 		// std::move takes the pointer ownership and moves it from heap to the vector
 		particleVector.push_back(std::move(particle));

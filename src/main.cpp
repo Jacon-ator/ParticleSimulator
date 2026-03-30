@@ -9,18 +9,16 @@
 
 int main()
 {
-	// Creates the main window
+	// Initilzations of Objects
 	sf::RenderWindow window( sf::VideoMode( { 960, 540 } ), "Particle Simulator", sf::Style::Resize | sf::Style::Close);
 	Counter particleCounter;
 	sf::Font font("../src/assets/fonts/Overpass-Black.ttf");
 	sf::Text particleCountText(font);
-	particleCountText.setCharacterSize(42);
-	
 	std::vector<std::unique_ptr<Particle>> particleVector;
+	EventHandler eventHandler;
 	
 	while ( window.isOpen() )
 	{
-		EventHandler eventHandler;
 	// --- Event Logic --- 
 		while ( const std::optional event = window.pollEvent() )
 		{
@@ -47,13 +45,10 @@ int main()
 		
 	// --- Render Loop ---
 
-		// Clear the window at the start of the frame
 		window.clear();
-		
-		// Draw the particle counter
+
 		particleCounter.draw(window);
 
-		// Draw every particle
 		for (const auto& particle: particleVector)
 		{
 			particle->draw(window);
