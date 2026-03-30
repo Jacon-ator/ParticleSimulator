@@ -6,6 +6,26 @@
 #include "particle.h"
 #include "counter.h"
 
+void handleEventResized(sf::RenderWindow &window)
+{
+	// std::cout << "Window Size = X: " << window.getSize().x << " Y: " << window.getSize().y << std::endl;
+	printf("Window Size = X: %i, Y: %i \n", window.getSize().x, window.getSize().y);
+}
+
+void handleTextEntered(const sf::Event::TextEntered* textEntered)
+{
+	if (textEntered->unicode < 128)
+	std::cout << "ASCII character typed: " << static_cast<char>(textEntered->unicode) << std::endl;
+}
+
+void handleKeyPressed(auto keyPressed, sf::RenderWindow &window)
+{
+	if (keyPressed->scancode == sf::Keyboard::Scan::Escape)
+	{
+		window.close();
+	}	
+}
+
 int main()
 {
 	// Creates the main window
@@ -32,24 +52,19 @@ int main()
 			// When window is resized, print size to console
 			if ( event->is<sf::Event::Resized>())
 			{
-				// std::cout << "Window Size = X: " << window.getSize().x << " Y: " << window.getSize().y << std::endl;
-				printf("Window Size = X: %i, Y: %i \n", window.getSize().x, window.getSize().y);
+				handleEventResized(window);
 			}
 			
 			// If the user enters text, print that ascii to console
 			if (const auto* textEntered = event->getIf<sf::Event::TextEntered>())
 			{
-				if (textEntered->unicode < 128)
-				std::cout << "ASCII character typed: " << static_cast<char>(textEntered->unicode) << std::endl;
+				handleTextEntered(textEntered);
 			}
 			
 			// If the user pressed ESC, the window will close
 			if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
 			{
-				if (keyPressed->scancode == sf::Keyboard::Scan::Escape)
-				{
-					window.close();
-				}
+				handleKeyPressed(keyPressed, window);
 			}
 
 			// When user clicks, a particle is placed at their mouse position
@@ -71,12 +86,10 @@ int main()
 		
 		for (const auto& particle: particleVector)
 		{
-			// particle->draw(window);
 			particle->draw(window);
 		}
 
-		particleCountText.setString(std::format("Particle Count = {}\n", particleCounter.getAmount()));
-		window.draw(particleCountText);
+		particleCounter.draw(window);
 		window.display();
 	}
 } 
