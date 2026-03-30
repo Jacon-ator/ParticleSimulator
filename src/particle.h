@@ -3,10 +3,12 @@
 class Particle {
     public:
 
-        Particle(float particleSize, const sf::Color particleColor) 
-        : size(particleSize), color{particleColor} {};
-        Particle(float particleSize, const sf::Color particleColor, const sf::Vector2f particlePosition) 
-        : size(particleSize), color{particleColor}, position(particlePosition) {};
+        Particle(const sf::Color particleColor) 
+        : color{particleColor} {};
+        Particle(const sf::Color particleColor, const sf::Vector2f particlePosition) 
+        : color{particleColor}, position(particlePosition) {};
+        Particle(const sf::Color particleColor, const sf::Vector2f particlePosition, float particleSize) 
+        : color{particleColor}, position(particlePosition), size(particleSize) {};
 
         float getSize()
         {

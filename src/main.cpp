@@ -9,7 +9,9 @@
 
 int main()
 {
-	// Initilzations of Objects
+	
+	// --- Initialization Of Objects
+
 	sf::RenderWindow window( sf::VideoMode( { 960, 540 } ), "Particle Simulator", sf::Style::Resize | sf::Style::Close);
 	Counter particleCounter;
 	sf::Font font("../src/assets/fonts/Overpass-Black.ttf");
@@ -19,7 +21,9 @@ int main()
 	
 	while ( window.isOpen() )
 	{
+
 	// --- Event Logic --- 
+
 		while ( const std::optional event = window.pollEvent() )
 		{
 			// If the event is the close event, close the window
