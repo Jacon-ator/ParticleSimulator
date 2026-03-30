@@ -17,11 +17,6 @@ struct Counter {
             amount -= value;
         }
 
-        void updateCounter(sf::RenderWindow& window)
-        {
-            
-        }
-
     private:
         int amount = 0;
 };

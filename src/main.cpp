@@ -52,12 +52,18 @@ int main()
 				}
 			}
 
+			// When user clicks, a particle is placed at their mouse position
 			if (event->is<sf::Event::MouseButtonPressed>())
 			{
+				// Sets position of mouse to vector variable
 				sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+				// Makes a new unique_ptr for a new particle
 				auto particle = std::make_unique<Particle>(50.0f, sf::Color::Cyan, static_cast<sf::Vector2f>(mousePosition));
-				particleCounter.increment();
+				// Adds the pointer to the new particle to the particleVector array
+				// std::move takes the pointer ownership and moves it from heap to the vector
 				particleVector.push_back(std::move(particle));
+				// Incremets the particleCounter by 1
+				particleCounter.increment();
 			}
 		}
 		
@@ -65,6 +71,7 @@ int main()
 		
 		for (const auto& particle: particleVector)
 		{
+			// particle->draw(window);
 			particle->draw(window);
 		}
 
