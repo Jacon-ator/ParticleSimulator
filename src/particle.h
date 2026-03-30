@@ -44,7 +44,7 @@ class Particle {
         }
 
     private:
-        float size = 50.0f;
+        float size = 20.0f;
         sf::Color color = sf::Color::Cyan;
         sf::Vector2f position = sf::Vector2f(0.0f, 0.0f);
         sf::CircleShape circle;
