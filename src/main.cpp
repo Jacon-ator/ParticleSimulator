@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <format>
+#include <vector>
 
 #include "particle.h"
 #include "counter.h"
@@ -14,9 +15,7 @@ int main()
 	sf::Text particleCountText(font);
 	particleCountText.setCharacterSize(42);
 	
-	// Sets the origin of the cursor to be in the middle of the particle
-	// particle.setOrigin(sf::Vector2f(particle.getRadius(), particle.getRadius()));
-	Particle particle(100.0f, sf::Color::Cyan);	
+	std::vector<std::unique_ptr<Particle>> particleVector;
 	
 	// While application is open
 	while ( window.isOpen() )
@@ -52,17 +51,23 @@ int main()
 					window.close();
 				}
 			}
+
+			if (event->is<sf::Event::MouseButtonPressed>())
+			{
+				sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+				auto particle = std::make_unique<Particle>(50.0f, sf::Color::Cyan, static_cast<sf::Vector2f>(mousePosition));
+				particleCounter.increment();
+				particleVector.push_back(std::move(particle));
+			}
 		}
 		
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-		{
-			sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-			particle.setPosition(static_cast<sf::Vector2f>(mousePosition));
-			particleCounter.increment();
-		} 
 		window.clear();
 		
-		particle.draw(window);
+		for (const auto& particle: particleVector)
+		{
+			particle->draw(window);
+		}
+
 		particleCountText.setString(std::format("Particle Count = {}\n", particleCounter.getAmount()));
 		window.draw(particleCountText);
 		window.display();
