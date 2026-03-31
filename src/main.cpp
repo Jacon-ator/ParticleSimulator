@@ -6,17 +6,17 @@
 #include "particle.h"
 #include "counter.h"
 #include "eventHandler.h"
+#include "verlet.h"
 
 int main()
 {
 	// --- Initialization Of Objects
 
-	sf::RenderWindow window( sf::VideoMode( { 960, 540 } ), "Particle Simulator", sf::Style::Resize | sf::Style::Close);
+	sf::RenderWindow window( sf::VideoMode( { 960, 540 } ), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close);
 	Counter particleCounter;
-	sf::Font font("../src/assets/fonts/Overpass-Black.ttf");
-	sf::Text particleCountText(font);
 	std::vector<std::unique_ptr<Particle>> particleVector;
-	
+	sf::Clock clock;
+
 	while ( window.isOpen() )
 	{
 
@@ -46,6 +46,7 @@ int main()
 		}
 		
 	// --- Render Loop ---
+		float deltaTime = clock.restart().asSeconds();
 
 		window.clear();
 
@@ -53,6 +54,7 @@ int main()
 
 		for (const auto& particle: particleVector)
 		{
+			Verlet::integrate(*particle, deltaTime);
 			particle->draw(window);
 		}
 
