@@ -30,35 +30,17 @@ class Particle {
             circle.setFillColor(color);
         };
 
-        float getSize()
-        {
-            return size;
-        }
+        float getSize() {return size;}
 
-        float getRadius()
-        {
-            return size / 2;
-        }
+        float getRadius() {return size / 2;}
 
-        sf::Vector2f getPreviousPosition()
-        {
-            return previousPosition;
-        }
-        
-        sf::Vector2f getCurrentPosition()
-        {
-            return position;
-        }
-        
-        sf::Vector2f getAcceleration()
-        {
-            return acceleration;
-        }
+        sf::Vector2f getPreviousPosition() {return previousPosition;}
 
-        void setPreviousPosition(sf::Vector2f newPreviousPosition)
-        {
-            previousPosition = newPreviousPosition;
-        }
+        sf::Vector2f getCurrentPosition() {return position;}
+
+        sf::Vector2f getAcceleration() {return acceleration;}
+
+        void setPreviousPosition(sf::Vector2f newPreviousPosition) { previousPosition = newPreviousPosition; }
 
         void setCurrentPosition(sf::Vector2f newValue)
         {
@@ -66,20 +48,11 @@ class Particle {
             circle.setPosition(position);
         }
         
-        void setAcceleration(sf::Vector2f newAcceleration)
-        {
-            acceleration = newAcceleration;
-        }
+        void setAcceleration(sf::Vector2f newAcceleration) { acceleration = newAcceleration; }
 
-        void setColor(sf::Color newColor)
-        {
-            color = newColor;
-        }
-        
-        void draw(sf::RenderWindow& window)
-        {
-            window.draw(circle);
-        }
+        void setColor(sf::Color newColor) { color = newColor; }
+
+        void draw(sf::RenderWindow& window) {window.draw(circle);}
 
     private:
         float size = 20.0f;
