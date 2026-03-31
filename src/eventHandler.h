@@ -18,12 +18,21 @@ namespace EventHandler {
 	        std::cout << "ASCII character typed: " << static_cast<char>(textEntered->unicode) << std::endl;
     }
 
-    void handleKeyPressed(const sf::Event::KeyPressed *keyPressed, sf::RenderWindow &window)
+    void handleKeyPressed(const sf::Event::KeyPressed *keyPressed, sf::RenderWindow &window, std::vector<std::unique_ptr<Particle>> &particleVector)
     {
+        // switch (keyPressed->scancode)
+
 	    if (keyPressed->scancode == sf::Keyboard::Scan::Escape)
 	    {
 		    window.close();
 	    }	
+        if (keyPressed->scancode == sf::Keyboard::Scan::Up)
+        {
+            for (const std::unique_ptr<Particle> &particle : particleVector)
+            {
+                particle->setAcceleration({1000.0f, 0.0f});
+            }
+        }
     }
 
     void handleParticleSpawn(sf::RenderWindow &window, std::vector<std::unique_ptr<Particle>> &particleVector, Counter &particleCounter)
@@ -38,5 +47,7 @@ namespace EventHandler {
 		// Incremets the particleCounter by 1
 		particleCounter.increment();
     }
+
+
 
 };

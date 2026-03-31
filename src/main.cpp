@@ -39,7 +39,7 @@ int main()
 			
 			// If the user pressed ESC, the window will close
 			if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
-				EventHandler::handleKeyPressed(keyPressed, window);
+				EventHandler::handleKeyPressed(keyPressed, window, particleVector);
 
 			// When user clicks, a particle is placed at their mouse position
 			if (event->is<sf::Event::MouseButtonPressed>())
@@ -51,7 +51,7 @@ int main()
 
 		window.clear();
 		
-		for (const auto& particle: particleVector)
+		for (const std::unique_ptr<Particle> &particle: particleVector)
 		{
 			Verlet::integrate(*particle, deltaTime);
 			CollisionDetection::checkBoundaryCollision(*particle, window);

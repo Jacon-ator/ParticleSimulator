@@ -6,12 +6,12 @@
 
 namespace CollisionDetection {
 
-void checkBoundaryCollision(Particle& particle, sf::RenderWindow &window)
+void checkBoundaryCollision(Particle &particle, sf::RenderWindow &window)
 {
     const sf::Vector2u boundarySize = window.getSize();
     const float particleRadius = particle.getRadius(); 
     sf::Vector2f currentPosition = particle.getCurrentPosition();
-    float damping = 0.55;
+    float damping = 0.75;
 
     if (currentPosition.x > boundarySize.x - particleRadius)
     {
@@ -48,4 +48,3 @@ void checkBoundaryCollision(Particle& particle, sf::RenderWindow &window)
 }
 
 };
-
