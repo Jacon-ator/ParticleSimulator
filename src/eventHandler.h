@@ -6,7 +6,14 @@
 #include <memory>
 
 namespace EventHandler {
-
+    void changeAccelerationValues(std::vector<std::unique_ptr<Particle>> &particleVector, sf::Vector2f newAccleration)
+    {
+        for (const std::unique_ptr<Particle> &particle : particleVector)
+        {
+            particle->setAcceleration(newAccleration);
+        }
+    }
+    
     void handleEventResized(sf::RenderWindow &window)
     {
 	    printf("Window Size = X: %i, Y: %i \n", window.getSize().x, window.getSize().y);
@@ -20,25 +27,29 @@ namespace EventHandler {
 
     void handleKeyPressed(const sf::Event::KeyPressed *keyPressed, sf::RenderWindow &window, std::vector<std::unique_ptr<Particle>> &particleVector)
     {
-        // switch (keyPressed->scancode)
-
-	    if (keyPressed->scancode == sf::Keyboard::Scan::Escape)
-	    {
-		    window.close();
-	    }	
-        if (keyPressed->scancode == sf::Keyboard::Scan::Up)
+        switch (keyPressed->scancode)
         {
-            for (const std::unique_ptr<Particle> &particle : particleVector)
-            {
-                particle->setAcceleration({1000.0f, 0.0f});
-            }
+            case sf::Keyboard::Scan::Escape:
+                window.close();
+                break;
+            case sf::Keyboard::Scan::Right:
+                changeAccelerationValues(particleVector, {1000.0f, 0.0f});
+                break;
+            case sf::Keyboard::Scan::Up:
+                changeAccelerationValues(particleVector, {0.0f, -1000.0f});
+                break;
+            case sf::Keyboard::Scan::Down:
+                changeAccelerationValues(particleVector, {0.0f, 1000.0f});
+                break;
+            case sf::Keyboard::Scan::Left:
+                changeAccelerationValues(particleVector, {-1000.0f, 0.0f});
+                break;
         }
     }
 
     void handleParticleSpawn(sf::RenderWindow &window, std::vector<std::unique_ptr<Particle>> &particleVector, Counter &particleCounter)
     {
         sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-
 	    // Makes a new unique_ptr for a new particle
 		std::unique_ptr<Particle> particle = std::make_unique<Particle>(sf::Color::Cyan, static_cast<sf::Vector2f>(mousePosition));
         // Adds the pointer to the new particle to the particleVector array
@@ -47,7 +58,5 @@ namespace EventHandler {
 		// Incremets the particleCounter by 1
 		particleCounter.increment();
     }
-
-
 
 };

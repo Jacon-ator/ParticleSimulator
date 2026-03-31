@@ -11,7 +11,7 @@ void checkBoundaryCollision(Particle &particle, sf::RenderWindow &window)
     const sf::Vector2u boundarySize = window.getSize();
     const float particleRadius = particle.getRadius(); 
     sf::Vector2f currentPosition = particle.getCurrentPosition();
-    float damping = 0.75;
+    float damping = 0.55;
 
     if (currentPosition.x > boundarySize.x - particleRadius)
     {
