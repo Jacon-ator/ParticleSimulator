@@ -59,6 +59,6 @@ class Particle {
         sf::Color color = sf::Color::Cyan;
         sf::Vector2f position = sf::Vector2f(0.0f, 0.0f);
         sf::Vector2f previousPosition;
-        sf::Vector2f acceleration = sf::Vector2f(0.0f, 100.0f);
+        sf::Vector2f acceleration = sf::Vector2f(0.0f, 1000.0f);
         sf::CircleShape circle; 
 };

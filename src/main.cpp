@@ -7,6 +7,7 @@
 #include "counter.h"
 #include "eventHandler.h"
 #include "verlet.h"
+#include "collision.h"
 
 int main()
 {
@@ -49,14 +50,15 @@ int main()
 		float deltaTime = clock.restart().asSeconds();
 
 		window.clear();
-
-		particleCounter.draw(window);
-
+		
 		for (const auto& particle: particleVector)
 		{
 			Verlet::integrate(*particle, deltaTime);
+			CollisionDetection::checkBoundaryCollision(*particle, window);
 			particle->draw(window);
 		}
+		
+		particleCounter.draw(window);	
 
 		window.display();
 	}
