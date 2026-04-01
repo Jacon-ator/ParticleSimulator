@@ -54,7 +54,7 @@ int main()
 		for (const std::unique_ptr<Particle> &particle: particleVector)
 		{
 			Verlet::integrate(*particle, deltaTime);
-			CollisionDetection::checkBoundaryCollision(*particle, window);
+			CollisionDetection::checkBoundaryCollision(*particle, window.getSize());
 			particle->draw(window);
 		}
 		

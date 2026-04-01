@@ -1,14 +1,14 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
+#include <vector>
+#include <memory>
 
 #include "particle.h"
 
 namespace CollisionDetection {
 
-void checkBoundaryCollision(Particle &particle, sf::RenderWindow &window)
+void checkBoundaryCollision(Particle &particle, sf::Vector2u boundarySize)
 {
-    const sf::Vector2u boundarySize = window.getSize();
     const float particleRadius = particle.getRadius(); 
     sf::Vector2f currentPosition = particle.getCurrentPosition();
     float damping = 0.55;
@@ -46,5 +46,16 @@ void checkBoundaryCollision(Particle &particle, sf::RenderWindow &window)
         particle.setPreviousPosition({previousPosition.x, particleRadius + velocityY * damping});
     }
 }
+
+void checkParticleCollision(std::vector<std::unique_ptr<Particle>> &particleVector)
+{
+    for (std::unique_ptr<Particle> &particle: particleVector)
+    {
+        
+    }
+
+}
+
+
 
 };
