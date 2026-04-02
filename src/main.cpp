@@ -55,6 +55,7 @@ int main()
 		{
 			Verlet::integrate(*particle, deltaTime);
 			CollisionDetection::checkBoundaryCollision(*particle, window.getSize());
+			CollisionDetection::checkParticleCollision(particleVector, *particle);
 			particle->draw(window);
 		}
 		
