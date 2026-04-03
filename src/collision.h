@@ -53,30 +53,31 @@ void checkBoundaryCollision(Particle &particle, sf::Vector2u boundarySize)
     }
 }
 
-void checkParticleCollision(std::vector<std::unique_ptr<Particle>> &particleVector, Particle &particle)
+void checkParticleCollision(std::vector<std::unique_ptr<Particle>> &particleVector)
 {
-    auto it = std::ranges::find_if(particleVector, [&particle](const std::unique_ptr<Particle>& p) {
-        return p.get() == &particle;
-    });
-
-    if (it != particleVector.end())
+    std::size_t vectorSize = particleVector.size();
+    if (vectorSize > 1)
     {
-        auto index = std::distance(particleVector.begin(), it);
-        sf::Vector2f particlePosition = particleVector[index]->getCurrentPosition();
-        float particleRadius = particleVector[index]->getRadius();
-
-        for (int i = 0; i < index; i++)
+        for (int i = 0; i < vectorSize; i++)
         {
-            sf::Vector2f otherParticlePosition = particleVector[i]->getCurrentPosition();
-            if (float distance = getDistance(particlePosition, otherParticlePosition) < particleRadius)
+            sf::Vector2f particleIPosition = particleVector[i]->getCurrentPosition();
+            float particleIRadius = particleVector[i]->getRadius();
+
+            for (int j = i + 1 ; j < vectorSize; j++)
             {
-                float overlap = particleRadius * 2 - distance;
+                sf::Vector2f particleJPosition = particleVector[j]->getCurrentPosition();
+                float particleJRadius = particleVector[j]->getRadius();
                 
-                std::cout << "Particles Collided" << std::endl;
+                float overlap = particleIRadius + particleJRadius;
+                float distance = getDistance(particleIPosition, particleJPosition);
+                
+                if (distance < overlap)
+                {
+                    std::cout << "Collision Detected" << std::endl;
+                }
             }
         }
     }
-
 }
 
 float getDistance(sf::Vector2f pos1, sf::Vector2f pos2)
